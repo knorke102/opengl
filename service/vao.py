@@ -26,6 +26,14 @@ class VAO:
             'skybox': self.get_vao(
                 program=self.program.programs['skybox'],
                 vbo=self.vbo.vbos['skybox']
+            ),
+            'other_model': self.get_vao(
+                program=self.program.programs['default'],
+                vbo=self.vbo.vbos['other_model']
+            ),
+            'shadow_other_model': self.get_vao(
+                program=self.program.programs['shadow_map'],
+                vbo=self.vbo.vbos['other_model']
             )
         }
 

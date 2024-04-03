@@ -151,3 +151,12 @@ class SkyBox(BaseModel):
         self.texture = self.app.mesh.texture.textures[self.tex_id]
         self.program['u_texture_skybox'] = 0
         self.texture.use(location=0)
+
+
+class OtherModel(ExtendedBaseModel):
+    """
+    Класс предоставляет основную функциональность для создания и визуализации 3д-модели.
+    """
+    def __init__(self, app, vao_name='other_model', tex_id='other_model',
+                 pos=(0, 0, 0), rot=(-90, 0, 0), scale=(10, 10, 10)):
+        super().__init__(app, vao_name, tex_id, pos, rot, scale)
