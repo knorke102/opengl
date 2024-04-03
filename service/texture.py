@@ -17,6 +17,7 @@ class Texture:
             0: self.get_texture(path='textures/img.png'),
             1: self.get_texture(path='textures/img_1.png'),
             2: self.get_texture(path='textures/img_2.png'),
+            'other_model': self.get_texture(path='objects/ball/ball.png'),
             'skybox': self.get_texture_cube(path='textures/skybox/', ext='png'),
             'depth_texture': self.get_depth_texture()
         }

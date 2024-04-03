@@ -1,4 +1,5 @@
 import numpy as np
+import pywavefront
 
 
 class VBO:
@@ -12,7 +13,8 @@ class VBO:
         """
         self.vbos = {
             'cube': CubeVBO(ctx),
-            'skybox': SkyBoxVBO(ctx)
+            'skybox': SkyBoxVBO(ctx),
+            'other_model': OtherModelVBO(ctx)
         }
 
     def destroy(self):
@@ -141,4 +143,18 @@ class SkyBoxVBO(BaseVBO):
         """
         vertices = [(-1, -1, z), (3, -1, z), (-1, 3, z)]
         vertex_data = np.array(vertices, dtype='f4')
+        return vertex_data
+
+
+class OtherModelVBO(BaseVBO):
+    def __init__(self, app):
+        super().__init__(app)
+        self.format = '2f 3f 3f'
+        self.attribs = ['in_texcoord_0', 'in_normal', 'in_position']
+
+    def get_vertex_data(self, path='objects/ball/ball.obj'):
+        objs = pywavefront.Wavefront(path, cache=True, parse=True)
+        obj = objs.materials.popitem()[1]
+        vertex_data = obj.vertices
+        vertex_data = np.array(vertex_data, dtype='f4')
         return vertex_data

@@ -1,4 +1,4 @@
-from service.model import Cube, SkyBox
+from service.model import Cube, SkyBox, OtherModel
 
 
 class Scene:
@@ -37,6 +37,8 @@ class Scene:
 
         # cube
         add(Cube(app, pos=(0, 0, 0), tex_id=1))
+
+        add(OtherModel(app, pos=(0, 0, -10)))
 
     def render(self):
         """
