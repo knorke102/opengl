@@ -11,7 +11,8 @@ class VBO:
         :param moderngl.Context ctx: Контекст moderngl.
         """
         self.vbos = {
-            'cube': CubeVBO(ctx)
+            'cube': CubeVBO(ctx),
+            'skybox': SkyBoxVBO(ctx)
         }
 
     def destroy(self):
@@ -35,11 +36,7 @@ class BaseVBO:
         self.format = None
         self.attribs = None
 
-    def get_vertex_data(self):
-        """
-        Абстрактный метод, который должен быть реализован в подклассах.
-        """
-        pass
+    def get_vertex_data(self):  ...
 
     def get_vbo(self):
         """
@@ -120,4 +117,28 @@ class CubeVBO(BaseVBO):
         tex_coord_data = self.get_data(tex_coord_vertices, tex_coord_indices)
         vertex_data = np.hstack([tex_coord_data, vertex_data])
 
+        return vertex_data
+
+
+class SkyBoxVBO(BaseVBO):
+    """
+    Класс для создания буфера вершин для пола.
+    """
+    def __init__(self, ctx):
+        """
+        Метод инициализации объекта буфера вершин для пола.
+        :param moderngl.Context ctx: Контекст moderngl.
+        """
+        super().__init__(ctx)
+        self.format = '3f'
+        self.attribs = ['in_position']
+
+    def get_vertex_data(self, z=0.9999):
+        """
+        Получение данных вершин для пола.
+        :param float z: Координата z, чтобы пол находился позади всех других объектов.
+        :return numpy.ndarray: Данные вершин для пола.
+        """
+        vertices = [(-1, -1, z), (3, -1, z), (-1, 3, z)]
+        vertex_data = np.array(vertices, dtype='f4')
         return vertex_data

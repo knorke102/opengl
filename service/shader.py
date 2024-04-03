@@ -10,9 +10,10 @@ class ShaderProgram:
         :param moderngl.Context ctx: Контекст moderngl.
         """
         self.ctx = ctx
-        self.dir_shaders = 'shaders'
         self.programs = {
-            'default': self.get_program('default')
+            'default': self.get_program('shaders/default'),
+            'skybox': self.get_program('shaders/skybox'),
+            'shadow_map': self.get_program('shaders/shadow_map')
         }
 
     def get_program(self, path):
@@ -21,10 +22,10 @@ class ShaderProgram:
         :param str path: Название шейдера.
         :return moderngl.Program: Скомпилированный шейдер.
         """
-        with open(f'{self.dir_shaders}/{path}.vert') as file:
+        with open(f'{path}.vert') as file:
             vertex_shader = file.read()
 
-        with open(f'{self.dir_shaders}/{path}.frag') as file:
+        with open(f'{path}.frag') as file:
             fragment_shader = file.read()
 
         program = self.ctx.program(vertex_shader=vertex_shader, fragment_shader=fragment_shader)
