@@ -1,5 +1,5 @@
-from vbo import VBO
-from shader import ShaderProgram
+from service.vbo import VBO
+from service.shader import ShaderProgram
 
 
 class VAO:
@@ -18,6 +18,14 @@ class VAO:
             'cube': self.get_vao(
                 program=self.program.programs['default'],
                 vbo=self.vbo.vbos['cube']
+            ),
+            'shadow_cube': self.get_vao(
+                program=self.program.programs['shadow_map'],
+                vbo=self.vbo.vbos['cube']
+            ),
+            'skybox': self.get_vao(
+                program=self.program.programs['skybox'],
+                vbo=self.vbo.vbos['skybox']
             )
         }
 
@@ -28,7 +36,8 @@ class VAO:
         :param vbo: Буфер вершин.
         :return moderngl.VertexArray: Созданный объект массива вершин.
         """
-        vao = self.ctx.vertex_array(program, [(vbo.vbo, vbo.format, *vbo.attribs)])
+        vao = self.ctx.vertex_array(program, [(vbo.vbo, vbo.format, *vbo.attribs)],
+                                    skip_errors=True)
         return vao
 
     def destroy(self):

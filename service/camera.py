@@ -11,8 +11,7 @@ class Camera:
     def __init__(self, app,
                  position=(0, 0, 4),
                  yaw=-90, pitch=0,
-                 up=(0, 1, 0), right=(1, 0, 0), forward=(0, 0, -1)
-                 ):
+                 up=(0, 1, 0), right=(1, 0, 0), forward=(0, 0, -1)):
         """
         Метод инициализации объекта камеры.
         :param GraphicsEngine app: Объект приложения.

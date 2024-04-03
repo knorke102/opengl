@@ -1,10 +1,10 @@
 import sys
 import pygame as pg
 import moderngl as mgl
-from mesh import Mesh
-from scene import Scene
-from light import Light
-from camera import Camera
+from service.mesh import Mesh
+from service.scene import Scene, SceneRenderer
+from service.light import Light
+from service.camera import Camera
 
 
 class GraphicsEngine:
@@ -46,6 +46,7 @@ class GraphicsEngine:
         self.camera = Camera(self)
         self.mesh = Mesh(self)
         self.scene = Scene(self)
+        self.scene_renderer = SceneRenderer(self)
 
     def check_events(self):
         """
@@ -55,6 +56,7 @@ class GraphicsEngine:
         for event in pg.event.get():
             if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 self.mesh.destroy()
+                self.scene_renderer.destroy()
                 pg.quit()
                 sys.exit()
 
@@ -74,7 +76,7 @@ class GraphicsEngine:
         :param float alpha: Прозрачность фона.
         """
         self.ctx.clear(color=(red, green, blue, alpha))
-        self.scene.render()
+        self.scene_renderer.render()
         pg.display.flip()
 
     def run(self, fps=60):

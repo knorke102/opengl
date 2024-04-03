@@ -1,5 +1,5 @@
-from vao import VAO
-from texture import Texture
+from service.vao import VAO
+from service.texture import Texture
 
 
 class Mesh:
