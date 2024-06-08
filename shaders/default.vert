@@ -21,7 +21,6 @@ mat4 m_shadow_bias = mat4(
     0.5, 0.5, 0.5, 1.0
 );
 
-
 void main() {
     uv_0 = in_texcoord_0;
     fragPos = vec3(m_model * vec4(in_position, 1.0));
